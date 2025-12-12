@@ -1,6 +1,6 @@
 # Booking Hotels Scraper
 
-Projecte amb l’objectiu d'extreure informació d’hotels de **Barcelona** des del portal [Booking.com](https://www.booking.com) utilitzant tècniques de *web scraping* amb **Python**, **Scrapy** i **Selenium**.
+Prova de concepte amb l’objectiu d'extreure informació d’hotels de **Barcelona** des del portal [Booking.com](https://www.booking.com) utilitzant tècniques de *web scraping* amb **Python**, **Scrapy** i **Selenium**.
 
 ## · Descripció del projecte
 
