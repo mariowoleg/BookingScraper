@@ -14,9 +14,10 @@ def main():
     config.update({
         'USER_AGENT': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36',
         'ROBOTSTXT_OBEY': False,
-        'DOWNLOAD_DELAY': 7,
-        'CONCURRENT_REQUESTS': 1,
-        'AUTOTHROTTLE_ENABLED': True,
+        'CONCURRENT_REQUESTS': 16,
+        'REACTOR_THREADPOOL_MAXSIZE':20,
+        'DOWNLOAD_DELAY': 0,
+        'AUTOTHROTTLE_ENABLED': False,
 
         #Config de scrappy:
         'SELENIUM_DRIVER_NAME': 'chrome',

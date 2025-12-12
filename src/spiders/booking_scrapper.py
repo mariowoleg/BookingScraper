@@ -192,7 +192,7 @@ class BookingScrapperSpider(scrapy.Spider):
             field_name = CATEGORY_MAP.get(norm_key)
             if field_name:
                 review_marks[field_name] = v
-                print(f"   ✅ {norm_key} → {field_name}: {v}")
+                print(f"{norm_key} → {field_name}: {v}")
             else:
                 # Si apareix una categoria nova, la guardem igualment
                 review_marks[f"unknown_{norm_key.replace(' ', '_')}"] = v
@@ -234,37 +234,21 @@ class BookingScrapperSpider(scrapy.Spider):
                 EC.element_to_be_clickable((By.ID, 'onetrust-accept-btn-handler'))
             )
             cookie_btn.click()
+            WebDriverWait(driver, 2)
+
             print("Cookies acceptades")
         except:
             print("No s'han trobat cookies o be ha fallat")
 
-    def handle_scroll_until_button(self, driver, pause_time=2, max_scrolls=100):
+    def handle_scroll_until_button(self, driver, max_scrolls=500):
         clicked_button = 0
-        print("Iniciant scroll infinit...")
-
-        last_height = driver.execute_script("return document.body.scrollHeight")
-        scroll_attempts = 0
-
-        while scroll_attempts < max_scrolls:
+        for i in range(max_scrolls):
             driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-            scroll_attempts += 1
-
-            time.sleep(pause_time)
 
             if self.click_load_more_button(driver):
                 clicked_button += 1
                 continue
 
-            new_height = driver.execute_script("return document.body.scrollHeight")
-
-            if new_height == last_height:
-                print("Scroll completat!")
-                break
-
-
-            last_height = new_height
-
-            print("Scroll finalitzat!")
 
     def handle_login_popup(self, driver):
         """Cierra el popup de inicio de sesión si aparece."""
@@ -276,7 +260,6 @@ class BookingScrapperSpider(scrapy.Spider):
             driver.execute_script("arguments[0].scrollIntoView(true);", close_btn)
             close_btn.click()
             print("Popup tancat")
-            time.sleep(1)
         except:
             print("No hi ha popup")
 
@@ -288,9 +271,8 @@ class BookingScrapperSpider(scrapy.Spider):
 
             if button.is_displayed() and button.is_enabled():
                 print("Botó detectat")
-                time.sleep(2)
                 driver.execute_script("arguments[0].click();", button)
-                time.sleep(2)
+                WebDriverWait(driver, 2)
 
         except:
             print("ERROR: No s'ha trobat cap botó!")
